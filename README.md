@@ -31,12 +31,12 @@ code .
 
 ## 🛠️ Requirements & Setup
 
-### 1. For PC Simulation (Stage 1)
+### 1. For PC Simulation (Stage 1 – Zero Hardware)
 * **Code Editor:** [Visual Studio Code](https://code.visualstudio.com/)
 * **VS Code Extensions:**
   * **LVGL Live Preview** (`themastercoder007.lvgl-live-preview`) – compiles your C code to WebAssembly/SDL2 in real-time.
   * **C/C++** (`ms-vscode.cpptools`) – IntelliSense and code navigation.
-  * *(No toolchains or compilers need to be installed manually; the LVGL extension manages its own simulation toolchain!)*
+  * *(The LVGL extension manages its own sandboxed Emscripten compiler internally, so you can preview without setting up any build tools!)*
 
 ### 2. For Physical ESP32 Hardware (Stage 2)
 * **Framework:** [ESP-IDF v5.x or v6.x](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/)
@@ -47,6 +47,51 @@ code .
   * **Touch:** Capacitive Touch Panel (CST816S I2C driver)
   * **External LED:** 5mm LED + 220Ω resistor connected to GPIO 26
   * Jumper wires & Breadboard
+
+---
+
+## 📦 Core Dependencies & Quick Install Commands
+
+When building natively or flashing with the ESP-IDF toolchain, the following underlying build tools are required:
+
+| Software / Tool | Purpose | Original Official Source |
+|---|---|---|
+| **CMake** | Build system generator | [cmake.org](https://cmake.org/download/) |
+| **Ninja** | High-speed build system | [ninja-build.org](https://github.com/ninja-build/ninja/releases) |
+| **GCC / Clang** | C/C++ compiler toolchain | [gcc.gnu.org](https://gcc.gnu.org/) / [LLVM Clang](https://releases.llvm.org/) |
+| **Git** | Source code version control | [git-scm.com](https://git-scm.com/downloads) |
+| **Python 3** | Package management & IDF scripts | [python.org](https://www.python.org/downloads/) |
+| **ESP-IDF Tools** | Xtensa GCC, OpenOCD, ROM ELF | [dl.espressif.com](https://dl.espressif.com/dl/esp-idf/) |
+
+### ⚡ One-Liner Quick Install Commands
+
+Choose your operating system below to install all dependencies in one command:
+
+#### 🪟 Windows (via Winget or Chocolatey)
+Using **Windows Package Manager (Winget)** in PowerShell:
+```powershell
+winget install --id Kitware.CMake Ninja-build.Ninja Git.Git Python.Python.3.11 -e
+```
+
+Or using **Chocolatey**:
+```powershell
+choco install cmake ninja git python -y
+```
+
+> [!TIP]
+> **Recommended for ESP32 on Windows:** The official [ESP-IDF Windows All-In-One Installer](https://dl.espressif.com/dl/esp-idf/) automatically installs CMake, Ninja, Python, Git, and the Xtensa-ESP32 GCC toolchains into isolated directories without conflicting with your system PATH.
+
+#### 🐧 Linux (Ubuntu / Debian / Raspberry Pi OS)
+Run in terminal:
+```bash
+sudo apt update && sudo apt install -y build-essential gcc g++ cmake ninja-build git python3 python3-pip python3-venv libusb-1.0-0
+```
+
+#### 🍎 macOS (via Homebrew)
+Run in terminal:
+```bash
+brew install cmake ninja git python
+```
 
 ---
 
