@@ -1,0 +1,19 @@
+{
+  "mainFile": "main/app_main.c",
+  "dependencies": [
+    "main/ui/ui_manager.c",
+    "main/ui/ui_home.c",
+    "main/ui/ui_stopwatch.c",
+    "main/ui/ui_led.c",
+    "main/ui/ui_counter.c",
+    "main/applications/stopwatch.c",
+    "main/applications/led_control.c",
+    "main/applications/counter.c"
+  ],
+  "includePaths": [
+    "main",
+    "main/ui",
+    "main/applications"
+  ]
+}
+

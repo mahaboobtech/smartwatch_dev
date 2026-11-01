@@ -531,31 +531,31 @@ The project should follow these principles:
 
 ### Phase 1 – Development Environment
 
-- [ ] Install ESP-IDF extension.
-- [ ] Verify ESP-IDF installation.
-- [ ] Install LVGL Live Preview.
-- [ ] Configure the project folder.
-- [ ] Configure ESP32 target.
-- [ ] Verify PC simulator.
+- [x] Install ESP-IDF extension.
+- [x] Verify ESP-IDF installation.
+- [x] Install LVGL Live Preview.
+- [x] Configure the project folder.
+- [x] Configure ESP32 target.
+- [x] Verify PC simulator.
 
 ### Phase 2 – UI Development
 
-- [ ] Create smartwatch home screen.
-- [ ] Design application launcher.
-- [ ] Implement navigation.
-- [ ] Create stopwatch screen.
-- [ ] Create LED control screen.
-- [ ] Create counter screen.
-- [ ] Implement button interactions.
-- [ ] Test all screens in the PC simulator.
+- [x] Create smartwatch home screen.
+- [x] Design application launcher.
+- [x] Implement navigation.
+- [x] Create stopwatch screen.
+- [x] Create LED control screen.
+- [x] Create counter screen.
+- [x] Implement button interactions.
+- [x] Test all screens in the PC simulator.
 
 ### Phase 3 – Application Logic
 
-- [ ] Implement stopwatch logic.
-- [ ] Implement LED control logic.
-- [ ] Implement digital counter logic.
-- [ ] Integrate application logic with UI.
-- [ ] Test application state and updates.
+- [x] Implement stopwatch logic.
+- [x] Implement LED control logic.
+- [x] Implement digital counter logic.
+- [x] Integrate application logic with UI.
+- [x] Test application state and updates.
 
 ### Phase 4 – ESP32 Integration
 
