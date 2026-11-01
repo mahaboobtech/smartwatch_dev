@@ -18,17 +18,17 @@ static void back_btn_event_cb(lv_event_t *e)
 lv_obj_t *ui_manager_create_screen_base(const char *title, bool show_back_button)
 {
     lv_obj_t *screen = lv_obj_create(NULL);
-    lv_obj_set_style_bg_color(screen, lv_color_hex(0x0F141C), 0);
+    lv_obj_set_style_bg_color(screen, COLOR_HAUNT_BG, 0);
     lv_obj_set_style_bg_opa(screen, LV_OPA_COVER, 0);
     lv_obj_set_scrollbar_mode(screen, LV_SCROLLBAR_MODE_OFF);
 
-    /* Header Bar */
+    /* Spooky Halloween Header Bar */
     lv_obj_t *header = lv_obj_create(screen);
     lv_obj_set_size(header, 240, 36);
     lv_obj_align(header, LV_ALIGN_TOP_MID, 0, 0);
-    lv_obj_set_style_bg_color(header, lv_color_hex(0x161D2B), 0);
+    lv_obj_set_style_bg_color(header, lv_color_hex(0x130A1C), 0);
     lv_obj_set_style_border_side(header, LV_BORDER_SIDE_BOTTOM, 0);
-    lv_obj_set_style_border_color(header, lv_color_hex(0x242F43), 0);
+    lv_obj_set_style_border_color(header, COLOR_PUMPKIN_ORANGE, 0);
     lv_obj_set_style_border_width(header, 1, 0);
     lv_obj_set_style_radius(header, 0, 0);
     lv_obj_set_style_pad_all(header, 2, 0);
@@ -38,14 +38,17 @@ lv_obj_t *ui_manager_create_screen_base(const char *title, bool show_back_button
         lv_obj_t *btn_back = lv_button_create(header);
         lv_obj_set_size(btn_back, 44, 26);
         lv_obj_align(btn_back, LV_ALIGN_LEFT_MID, 6, 0);
-        lv_obj_set_style_bg_color(btn_back, lv_color_hex(0x222C3E), 0);
+        lv_obj_set_style_bg_color(btn_back, lv_color_hex(0x28153B), 0);
+        lv_obj_set_style_bg_color(btn_back, lv_color_hex(0x421D64), LV_STATE_PRESSED);
+        lv_obj_set_style_border_width(btn_back, 1, 0);
+        lv_obj_set_style_border_color(btn_back, COLOR_PUMPKIN_ORANGE, 0);
         lv_obj_set_style_radius(btn_back, 6, 0);
         lv_obj_set_style_pad_all(btn_back, 0, 0);
         lv_obj_add_event_cb(btn_back, back_btn_event_cb, LV_EVENT_CLICKED, NULL);
 
         lv_obj_t *lbl_back = lv_label_create(btn_back);
         lv_label_set_text(lbl_back, LV_SYMBOL_LEFT);
-        lv_obj_set_style_text_color(lbl_back, lv_color_hex(0x00E5FF), 0);
+        lv_obj_set_style_text_color(lbl_back, COLOR_PUMPKIN_ORANGE, 0);
         lv_obj_center(lbl_back);
     }
 
@@ -54,10 +57,18 @@ lv_obj_t *ui_manager_create_screen_base(const char *title, bool show_back_button
         lv_label_set_text(lbl_title, title);
         lv_obj_set_style_text_color(lbl_title, lv_color_white(), 0);
         if (show_back_button) {
-            lv_obj_align(lbl_title, LV_ALIGN_CENTER, 8, 0);
+            lv_obj_align(lbl_title, LV_ALIGN_CENTER, 4, 0);
         } else {
             lv_obj_align(lbl_title, LV_ALIGN_CENTER, 0, 0);
         }
+    }
+
+    /* Watermark on sub-screens */
+    if (show_back_button) {
+        lv_obj_t *brand_tag = lv_label_create(header);
+        lv_label_set_text(brand_tag, "mahaboob");
+        lv_obj_set_style_text_color(brand_tag, lv_color_hex(0x735787), 0);
+        lv_obj_align(brand_tag, LV_ALIGN_RIGHT_MID, -6, 0);
     }
 
     return screen;
@@ -72,7 +83,7 @@ void ui_manager_init(void)
 
     s_is_initialized = true;
 
-    /* Load initial home screen */
+    /* Load initial Halloween home screen */
     lv_obj_t *home = ui_home_create();
     lv_screen_load(home);
 }
@@ -85,10 +96,12 @@ void ui_manager_show_screen(ui_screen_id_t screen_id)
     }
 
     lv_obj_t *next_screen = NULL;
+    lv_screen_load_anim_t anim = LV_SCREEN_LOAD_ANIM_MOVE_LEFT;
 
     switch (screen_id) {
         case UI_SCREEN_HOME:
             next_screen = ui_home_create();
+            anim = LV_SCREEN_LOAD_ANIM_MOVE_RIGHT;
             break;
         case UI_SCREEN_STOPWATCH:
             next_screen = ui_stopwatch_create();
@@ -101,12 +114,13 @@ void ui_manager_show_screen(ui_screen_id_t screen_id)
             break;
         default:
             next_screen = ui_home_create();
+            anim = LV_SCREEN_LOAD_ANIM_MOVE_RIGHT;
             break;
     }
 
     if (next_screen != NULL) {
-        /* Auto-delete previous screen after smooth fade */
-        lv_screen_load_anim(next_screen, LV_SCREEN_LOAD_ANIM_FADE_IN, 120, 0, true);
+        /* Auto-delete previous screen after smooth slide */
+        lv_screen_load_anim(next_screen, anim, 200, 0, true);
     }
 }
 
@@ -114,4 +128,3 @@ void ui_manager_go_home(void)
 {
     ui_manager_show_screen(UI_SCREEN_HOME);
 }
-
